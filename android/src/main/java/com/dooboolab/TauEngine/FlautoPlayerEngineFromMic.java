@@ -33,6 +33,10 @@ import java.lang.Thread;
 
 import com.dooboolab.TauEngine.Flauto.*;
 
+import android.content.pm.PackageManager;
+import androidx.core.content.ContextCompat;
+import java.io.IOException;
+import static android.Manifest.permission.RECORD_AUDIO;
 //-------------------------------------------------------------------------------------------------------------
 
 
@@ -211,6 +215,9 @@ class FlautoPlayerEngineFromMic extends FlautoPlayerEngineInterface
 				tabCodec[codec.ordinal()]
 			) ;// !!!!! * 2 ???
 
+		if (ContextCompat.checkSelfPermission(Flauto.androidContext, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+			throw new Exception("no permission");
+		}
 
 		recorder = new AudioRecord(
 			MediaRecorder.AudioSource.MIC,

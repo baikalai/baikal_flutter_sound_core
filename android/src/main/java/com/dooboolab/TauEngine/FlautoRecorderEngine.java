@@ -35,6 +35,10 @@ import java.util.Arrays;
 
 import com.dooboolab.TauEngine.Flauto.*;
 
+import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
+import androidx.core.content.ContextCompat;
+import static android.Manifest.permission.RECORD_AUDIO;
 
 public class FlautoRecorderEngine
 	implements FlautoRecorderInterface
@@ -203,6 +207,11 @@ public class FlautoRecorderEngine
 	{
 		if ( Build.VERSION.SDK_INT < 21)
 			throw new Exception ("Need at least SDK 21");
+
+		if (ContextCompat.checkSelfPermission(Flauto.androidContext, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+			throw new Exception("no permission");
+		}
+
 		session = theSession;
 		codec = theCodec;
 		int channelConfig = (numChannels == 1) ? AudioFormat.CHANNEL_IN_MONO : AudioFormat.CHANNEL_IN_STEREO;

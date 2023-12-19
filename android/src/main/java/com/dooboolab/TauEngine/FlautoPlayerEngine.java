@@ -111,8 +111,8 @@ class FlautoPlayerEngine extends FlautoPlayerEngineInterface
 			mSession = theSession;
 			AudioAttributes attributes = new AudioAttributes.Builder()
 				.setLegacyStreamType(AudioManager.STREAM_MUSIC)
-				.setUsage(AudioAttributes.USAGE_MEDIA)
-				.setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+				.setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
+				.setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
 				.build();
 
 			AudioFormat format = new AudioFormat.Builder()
