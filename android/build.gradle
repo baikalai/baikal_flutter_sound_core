@@ -51,7 +51,7 @@ apply plugin: 'com.android.library'
 //group = 'com.github.canardoux'
 
 //apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.canardoux'
+group='com.github.baikalAiKST'
 
 android {
     compileSdkVersion 30
@@ -87,8 +87,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 }
 ext {
-    PUBLISH_GROUP_ID = 'com.github.canardoux'
-    PUBLISH_ARTIFACT_ID = 'flutter_sound_core'
+    PUBLISH_GROUP_ID = 'com.github.baikalAiKST'
+    PUBLISH_ARTIFACT_ID = 'baikal_flutter_sound_core'
     PUBLISH_VERSION = android.defaultConfig.versionName // '0.0.2' // project.getProperty(“libraryVersion”)
 }
 
@@ -136,7 +136,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = PUBLISH_GROUP_ID
-                artifactId = 'flutter_sound_core'
+                artifactId = 'baikal_flutter_sound_core'
                 version = PUBLISH_VERSION
             }
 
@@ -146,7 +146,7 @@ afterEvaluate {
                 from components.debug
 
                 groupId = PUBLISH_GROUP_ID
-                artifactId = 'flutter_sound_core'
+                artifactId = 'baikal_flutter_sound_core'
                 version = PUBLISH_VERSION
             }
 
