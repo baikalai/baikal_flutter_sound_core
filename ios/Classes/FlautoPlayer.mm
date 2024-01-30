@@ -108,11 +108,11 @@ static bool _isIosDecoderSupported [] =
 
 - (void)releaseFlautoPlayer
 {
-        [self logDebug: @"IOS:--> releaseFlautoPlayer"];
+        [self logDebug: @"baikal_iOS::--> releaseFlautoPlayer"];
 
         [ self stop];
         [m_callBack closePlayerCompleted: YES];
-        [self logDebug:  @"IOS:<-- releaseFlautoPlayer"];
+        [self logDebug:  @"baikal_iOS::<-- releaseFlautoPlayer"];
 }
 
 
@@ -121,7 +121,7 @@ static bool _isIosDecoderSupported [] =
         [self stopTimer];
         if ( ([self getStatus] == PLAYER_IS_PLAYING) || ([self getStatus] == PLAYER_IS_PAUSED) )
         {
-                [self logDebug:  @"IOS: ![audioPlayer stop]"];
+                [self logDebug:  @"baikal_iOS:: ![audioPlayer stop]"];
                 [m_playerEngine stop];
         }
         m_playerEngine = nil;
@@ -131,16 +131,16 @@ static bool _isIosDecoderSupported [] =
 
 - (void)stopPlayer
 {
-        [self logDebug:  @"IOS:--> stopPlayer"];
+        [self logDebug:  @"baikal_iOS::--> stopPlayer"];
         [self stop];
         [m_callBack stopPlayerCompleted: YES];
-        [self logDebug:  @"IOS:<-- stopPlayer"];
+        [self logDebug:  @"baikal_iOS::<-- stopPlayer"];
 
 }
 
 - (bool)startPlayerFromMicSampleRate: (long)sampleRate nbChannels: (int)nbChannels
 {
-        [self logDebug:  @"IOS:--> startPlayerFromMicSampleRate"];
+        [self logDebug:  @"baikal_iOS::--> startPlayerFromMicSampleRate"];
         [self stop]; // To start a fresh new playback
         m_playerEngine = [[AudioEngineFromMic alloc] init: self ];
         [m_playerEngine startPlayerFromURL: nil codec: (t_CODEC)0 channels: nbChannels sampleRate: sampleRate];
@@ -149,7 +149,7 @@ static bool _isIosDecoderSupported [] =
         {
                         [ m_callBack startPlayerCompleted: true duration: 0];
         }
-        [self logDebug:  @"IOS:<-- startPlayerFromMicSampleRate"];
+        [self logDebug:  @"baikal_iOS::<-- startPlayerFromMicSampleRate"];
         return b; // TODO
 }
 
@@ -182,7 +182,7 @@ static bool _isIosDecoderSupported [] =
         channels: (int)numChannels
         sampleRate: (long)sampleRate
 {
-        [self logDebug:  @"IOS:--> startPlayer"];
+        [self logDebug:  @"baikal_iOS::--> startPlayer"];
         bool b = FALSE;
         [self stop]; // To start a fresh new playback
 
@@ -206,7 +206,7 @@ static bool _isIosDecoderSupported [] =
                         long duration = [m_playerEngine getDuration];
                         [ m_callBack startPlayerCompleted: true duration: duration];
                 }
-                [self logDebug:  @"IOS:<-- startPlayer]"];
+                [self logDebug:  @"baikal_iOS::<-- startPlayer]"];
 
                 return b;
         }
@@ -249,7 +249,7 @@ static bool _isIosDecoderSupported [] =
 
                         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
                         [downloadTask resume];
-                        [self logDebug:  @"IOS:<-- startPlayer"];
+                        [self logDebug:  @"baikal_iOS::<-- startPlayer"];
 
                         return true;
 
@@ -269,7 +269,7 @@ static bool _isIosDecoderSupported [] =
                 long duration = [m_playerEngine getDuration];
                 [ m_callBack startPlayerCompleted: true duration: duration];
         }
-        [self logDebug: @"IOS:<-- startPlayer"];
+        [self logDebug: @"baikal_iOS::<-- startPlayer"];
         return b;
 }
 
@@ -308,7 +308,7 @@ static bool _isIosDecoderSupported [] =
 
 - (void)startTimer
 {
-        [self logDebug:  @"IOS:--> startTimer"];
+        [self logDebug:  @"baikal_iOS::--> startTimer"];
 
         [self stopTimer];
         if (subscriptionDuration > 0)
@@ -322,27 +322,27 @@ static bool _isIosDecoderSupported [] =
                                                    repeats:YES];
                 });
         }
-        [self logDebug:  @"IOS:<-- startTimer"];
+        [self logDebug:  @"baikal_iOS::<-- startTimer"];
 
 }
 
 
 - (void) stopTimer
 {
-        [self logDebug:  @"IOS:--> stopTimer"];
+        [self logDebug:  @"baikal_iOS::--> stopTimer"];
 
         if (timer != nil) {
                 [timer invalidate];
                 timer = nil;
         }
-        [self logDebug:  @"IOS:<-- stopTimer"];
+        [self logDebug:  @"baikal_iOS::<-- stopTimer"];
 }
 
 
 
 - (bool)pausePlayer
 {
-        [self logDebug:  @"IOS:--> pausePlayer"];
+        [self logDebug:  @"baikal_iOS::--> pausePlayer"];
 
  
         if (timer != nil)
@@ -357,14 +357,14 @@ static bool _isIosDecoderSupported [] =
                   long duration =   [m_playerEngine getDuration];
                   if (duration - position < 200) // PATCH [LARPOUX]
                   {
-                        [self logDebug:  @"IOS: !patch [LARPOUX]"];
+                        [self logDebug:  @"baikal_iOS:: !patch [LARPOUX]"];
                         dispatch_async(dispatch_get_main_queue(),
                         ^{
                                 [self stop];
-                                [self logDebug:  @"IOS:--> ^audioPlayerFinishedPlaying"];
+                                [self logDebug:  @"baikal_iOS::--> ^audioPlayerFinishedPlaying"];
 
                                 [self ->m_callBack  audioPlayerDidFinishPlaying: true];
-                                [self logDebug:  @"IOS:<-- ^audioPlayerFinishedPlaying"];
+                                [self logDebug:  @"baikal_iOS::<-- ^audioPlayerFinishedPlaying"];
                          });
                         //return false;
                   } else
@@ -373,10 +373,10 @@ static bool _isIosDecoderSupported [] =
                         [m_playerEngine pause];
         }
         else
-                [self logDebug:  @"IOS: audioPlayer is not Playing"];
+                [self logDebug:  @"baikal_iOS:: audioPlayer is not Playing"];
 
           [m_callBack pausePlayerCompleted: YES];
-          [self logDebug:  @"IOS:<-- pause"];
+          [self logDebug:  @"baikal_iOS::<-- pause"];
 
           return true;
 
@@ -389,13 +389,13 @@ static bool _isIosDecoderSupported [] =
 
 - (bool)resumePlayer
 {
-        [self logDebug:  @"IOS:--> resumePlayer"];
+        [self logDebug:  @"baikal_iOS::--> resumePlayer"];
         bool b = [m_playerEngine resume];
         if (!b){}
         
             
         [self startTimer];
-        [self logDebug:  @"IOS:<-- resumePlayer"];
+        [self logDebug:  @"baikal_iOS::<-- resumePlayer"];
 
         [m_callBack resumePlayerCompleted: b];
         return b;
@@ -423,7 +423,7 @@ static bool _isIosDecoderSupported [] =
 
 - (void)seekToPlayer: (long)t
 {
-        [self logDebug: @"IOS:--> seekToPlayer"];
+        [self logDebug: @"baikal_iOS::--> seekToPlayer"];
         if (m_playerEngine != nil)
         {
                 latentSeek = -1;
@@ -433,14 +433,14 @@ static bool _isIosDecoderSupported [] =
         {
                 latentSeek = t;
         }
-        [self logDebug:  @"IOS:<-- seekToPlayer"];
+        [self logDebug:  @"baikal_iOS::<-- seekToPlayer"];
 }
 
 
 
 - (void)setVolume:(double) volume fadeDuration:(NSTimeInterval)duration // volume is between 0.0 and 1.0
 {
-        [self logDebug:  @"IOS:--> setVolume"];
+        [self logDebug:  @"baikal_iOS::--> setVolume"];
         latentVolume = volume;
         if (m_playerEngine)
         {
@@ -448,13 +448,13 @@ static bool _isIosDecoderSupported [] =
         } else
         {
         }
-        [self logDebug: @"IOS:<-- setVolume"];
+        [self logDebug: @"baikal_iOS::<-- setVolume"];
 }
 
 
 - (void)setSpeed:(double) speed // speed is between 0.0 and 1.0 to slow and 1.0 to n to accelearate
 {
-        [self logDebug:  @"IOS:--> setSpeed"];
+        [self logDebug:  @"baikal_iOS::--> setSpeed"];
         latentSpeed = speed;
         if (m_playerEngine )
         {
@@ -462,7 +462,7 @@ static bool _isIosDecoderSupported [] =
         } else
         {
         }
-        [self logDebug: @"IOS:<-- setSpeed"];
+        [self logDebug: @"baikal_iOS::<-- setSpeed"];
 }
 
 
@@ -480,12 +480,12 @@ static bool _isIosDecoderSupported [] =
 
 - (NSDictionary*)getProgress
 {
-        [self logDebug:  @"IOS:--> getProgress"];
+        [self logDebug:  @"baikal_iOS::--> getProgress"];
 
         NSNumber *position = [NSNumber numberWithLong: [m_playerEngine getPosition]];
         NSNumber *duration = [NSNumber numberWithLong: [m_playerEngine getDuration]];
         NSDictionary* dico = @{ @"position": position, @"duration": duration, @"playerStatus": [self getPlayerStatus] };
-        [self logDebug:  @"IOS:<-- getProgress"];
+        [self logDebug:  @"baikal_iOS::<-- getProgress"];
         return dico;
 
 }
@@ -493,14 +493,14 @@ static bool _isIosDecoderSupported [] =
 
 - (void)setSubscriptionDuration: (long)d
 {
-        [self logDebug:  @"IOS:--> setSubscriptionDuration"];
+        [self logDebug:  @"baikal_iOS::--> setSubscriptionDuration"];
 
         subscriptionDuration = ((double)d)/1000;
         if (m_playerEngine != nil)
         {
                 [self startTimer];
         }
-        [self logDebug:  @"IOS:<-- setSubscriptionDuration"];
+        [self logDebug:  @"baikal_iOS::<-- setSubscriptionDuration"];
 
 }
 
@@ -515,19 +515,19 @@ static bool _isIosDecoderSupported [] =
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)thePlayer successfully:(BOOL)flag
 {
-        [self logDebug:  @"IOS:--> @audioPlayerDidFinishPlaying"];
+        [self logDebug:  @"baikal_iOS::--> @audioPlayerDidFinishPlaying"];
 
         dispatch_async(dispatch_get_main_queue(), ^{
                 [self stopTimer];
                 [ self ->m_playerEngine stop];
                 self ->m_playerEngine = nil;
-                [self logDebug:  @"IOS:--> ^audioPlayerFinishedPlaying"];
+                [self logDebug:  @"baikal_iOS::--> ^audioPlayerFinishedPlaying"];
 
                 [self ->m_callBack  audioPlayerDidFinishPlaying: true];
-                [self logDebug:  @"IOS:<-- ^audioPlayerFinishedPlaying"];
+                [self logDebug:  @"baikal_iOS::<-- ^audioPlayerFinishedPlaying"];
          });
  
-         [self logDebug:  @"IOS:<-- @audioPlayerDidFinishPlaying"];
+         [self logDebug:  @"baikal_iOS::<-- @audioPlayerDidFinishPlaying"];
 }
 
 - (t_PLAYER_STATE)getStatus

@@ -166,11 +166,11 @@ AudioRecInterface* audioRec;
 
 - (void)releaseFlautoRecorder
 {
-        [self logDebug:  @"IOS:--> releaseFlautoRecorder"];
+        [self logDebug:  @"baikal_iOS::--> releaseFlautoRecorder"];
 
         [ self stop];
         [m_callBack closeRecorderCompleted: true];
-        [self logDebug:  @"IOS:<-- releaseFlautoRecorder"];
+        [self logDebug:  @"baikal_iOS::<-- releaseFlautoRecorder"];
 
 }
 
@@ -236,7 +236,7 @@ AudioRecInterface* audioRec;
 
 - (void)stop
 {
-          [self logDebug:  @"iOS: ---> stop (flautoRecorder)"];
+          [self logDebug:  @"baikal_iOS:: ---> stop (flautoRecorder)"];
 
           [self stopRecorderTimer];
           if (audioRec != nil)
@@ -248,18 +248,18 @@ AudioRecInterface* audioRec;
                 delete audioRec;
                 audioRec = nil;
           }
-          [self logDebug:  @"iOS: <--- stop (flautoRecorder)"];
+          [self logDebug:  @"baikal_iOS:: <--- stop (flautoRecorder)"];
 
 }
 
 - (void)stopRecorder
 {
-          [self logDebug:  @"iOS: ---> stopRecorder (FlautoRecorder)"];
+          [self logDebug:  @"baikal_iOS:: ---> stopRecorder (FlautoRecorder)"];
           [self stop];
           NSString* url = [self getUrl: m_path];
           [m_callBack stopRecorderCompleted: url success: YES];
           m_path = nil;
-          [self logDebug:  @"iOS: <--- stopRecorder (FlautoRecorder)"];
+          [self logDebug:  @"baikal_iOS:: <--- stopRecorder (FlautoRecorder)"];
 }
 
 - (void)logDebug: (NSString*)msg
