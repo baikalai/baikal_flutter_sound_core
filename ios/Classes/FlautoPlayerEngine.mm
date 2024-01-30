@@ -36,11 +36,13 @@
 
        - (AVAudioPlayer*) getAudioPlayer
        {
+                printf("baikal_flutter_sound_core_player_engine getAudioPlayer\n");
                 return player;
        }
 
         - (void) setAudioPlayer: (AVAudioPlayer*)thePlayer
         {
+                printf("baikal_flutter_sound_core_player_engine setAudioPlayer\n");
                 player = thePlayer;
         }
 
@@ -49,11 +51,29 @@
        - (AudioPlayerFlauto*)init: (FlautoPlayer*)owner
        {
                 flautoPlayer = owner;
+
+                printf("baikal_flutter_sound_core_player_engine init\n");
+                //Initialize audio session
+                AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+                [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+                //Override record to mix with other app audio, background audio not silenced on record
+                OSStatus propertySetError = 0;
+                UInt32 allowMixing = true;
+                propertySetError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+
+                UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+                AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,sizeof (audioRouteOverride),&audioRouteOverride);
+
+                [[AVAudioSession sharedInstance] setActive:YES error:nil];
+
                 return [super init];
        }
 
        -(void) startPlayerFromBuffer: (NSData*) dataBuffer
        {
+                printf("baikal_flutter_sound_core_player_engine startPlayerFromBuffer\n");
                 NSError* error = [[NSError alloc] init];
                 [self setAudioPlayer:  [[AVAudioPlayer alloc] initWithData: dataBuffer error: &error]];
                 [self getAudioPlayer].delegate = flautoPlayer;
@@ -62,6 +82,7 @@
        -(void)  startPlayerFromURL: (NSURL*) url codec: (t_CODEC)codec channels: (int)numChannels sampleRate: (long)sampleRate
 
        {
+                printf("baikal_flutter_sound_core_player_engine startPlayerFromURL\n");
                 [self setAudioPlayer: [[AVAudioPlayer alloc] initWithContentsOfURL: url error: nil] ];
                 [self getAudioPlayer].delegate = flautoPlayer;
         }
@@ -168,6 +189,7 @@
 
        - (AudioEngine*)init: (FlautoPlayer*)owner
        {
+                printf("baikal_flutter_sound_core_player_engine AudioEngine init\n");
                 flutterSoundPlayer = owner;
                 waitingBlock = nil;
                 engine = [[AVAudioEngine alloc] init];
@@ -206,12 +228,14 @@
 
        -(void) startPlayerFromBuffer: (NSData*) dataBuffer
        {
+                 printf("baikal_flutter_sound_core_player_engine AudioEngine startPlayerFromBuffer\n");
                  [self feed: dataBuffer] ;
        }
         static int ready = 0;
 
        -(void)  startPlayerFromURL: (NSURL*) url codec: (t_CODEC)codec channels: (int)numChannels sampleRate: (long)sampleRate
        {
+                printf("baikal_flutter_sound_core_player_engine AudioEngine startPlayerFromURL\n");
                 assert(url == nil || url ==  (id)[NSNull null]);
                 m_sampleRate = sampleRate;
                 m_numChannels= numChannels;
@@ -395,6 +419,7 @@
 
        - (AudioEngineFromMic*)init: (FlautoPlayer*)owner
        {
+                printf("baikal_flutter_sound_core_player_engine AudioEngineFromMic init\n");
                 flutterSoundPlayer = owner;
                 waitingBlock = nil;
                 engine = [[AVAudioEngine alloc] init];
@@ -430,6 +455,7 @@
 
        -(void)  startPlayerFromURL: (NSURL*) url codec: (t_CODEC)codec channels: (int)numChannels sampleRate: (long)sampleRate
        {
+                printf("baikal_flutter_sound_core_player_engine AudioEngineFromMic startPlayerFromURL\n");
                 assert(url == nil || url ==  (id)[NSNull null]);
 
                 m_sampleRate = sampleRate;

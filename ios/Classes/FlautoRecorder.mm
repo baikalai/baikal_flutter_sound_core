@@ -147,6 +147,7 @@ AudioRecInterface* audioRec;
 
 - (FlautoRecorder*)init: (NSObject<FlautoRecorderCallback>*) callback
 {
+        printf("baikal_flutter_sound_core_recorder init\n");
         m_callBack = callback;
         return [super init];
 }

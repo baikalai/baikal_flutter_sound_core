@@ -7,8 +7,8 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'flutter_sound_core'
-  s.version          = '9.2.13'
+  s.name             = 'baikal_flutter_sound_core'
+  s.version          = '1.0.0'
   s.summary          = 'Provides simple recorder and player functionalities for iOS platform.'
 
 # This description is used to generate tags and improve search results.
@@ -23,10 +23,10 @@ This code was originally inside the flutter_sound/ios directory.
 It has been extracted to be isolated from Flutter and can be used with other frameworks.
                        DESC
 
-  s.homepage         = 'https://github.com/canardoux/flutter_sound'
+  s.homepage         = 'https://github.com/baikalAiKST/baikal_flutter_sound'
   s.license          = { :type => 'MPL2', :file => 'LICENSE' }
   s.author           = { 'larpoux' => 'larpoux@gmail.com' }
-  s.source           = { :git => 'https://github.com/canardoux/flutter_sound_core.git', :tag => '' + s.version.to_s }
+  s.source           = { :git => 'https://github.com/baikalAiKST/baikal_flutter_sound.git', :tag => '' + s.version.to_s }
 
   s.ios.deployment_target = '10.0'
 

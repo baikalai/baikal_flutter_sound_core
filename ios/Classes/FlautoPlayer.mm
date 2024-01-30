@@ -73,6 +73,23 @@ static bool _isIosDecoderSupported [] =
         latentSeek = -1;
         subscriptionDuration = 0;
         timer = nil;
+
+        printf("baikal_flutter_sound_core_player init\n");
+        //Initialize audio session
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        //Override record to mix with other app audio, background audio not silenced on record
+        OSStatus propertySetError = 0;
+        UInt32 allowMixing = true;
+        propertySetError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+
+        UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+        AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,sizeof (audioRouteOverride),&audioRouteOverride);
+
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+
         return [super init];
 }
 
