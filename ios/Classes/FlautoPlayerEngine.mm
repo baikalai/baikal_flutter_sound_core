@@ -55,12 +55,11 @@
                 // AVAudioSession Setting
                 AVAudioSession *session = [AVAudioSession sharedInstance];
                 NSError *error = nil;
-                [session setCategory: AVAudioSessionCategoryPlayAndRecord
-                         mode: AVAudioSessionModeDefault
-                         options: AVAudioSessionCategoryOptionMixWithOthers|AVAudioSessionCategoryOptionDefaultToSpeaker
-                         error: &error];
+                [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+                if (![session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error]) {
+                    NSLog(@"AVAudioSession error : %@", error);
+                }
                 [session setActive: YES error: &error];
-                [session overrideOutputAudioPort: AVAudioSessionPortOverrideSpeaker error:&error];
                 printf("baikal_flutter_sound_core_player_engine AVAudioSession\n");
                 return [super init];
        }
