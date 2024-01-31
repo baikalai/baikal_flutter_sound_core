@@ -27,6 +27,7 @@
 #import "Flauto.h"
 #import "FlautoPlayerEngine.h"
 #import "FlautoPlayer.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation AudioPlayerFlauto
 {
