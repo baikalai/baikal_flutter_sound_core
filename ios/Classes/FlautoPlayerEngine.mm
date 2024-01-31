@@ -37,13 +37,11 @@
 
        - (AVAudioPlayer*) getAudioPlayer
        {
-                printf("baikal_flutter_sound_core_player_engine getAudioPlayer\n");
                 return player;
        }
 
         - (void) setAudioPlayer: (AVAudioPlayer*)thePlayer
         {
-                printf("baikal_flutter_sound_core_player_engine setAudioPlayer\n");
                 player = thePlayer;
         }
 
@@ -57,18 +55,18 @@
                 // AVAudioSession Setting
                 AVAudioSession *session = [AVAudioSession sharedInstance];
                 NSError *error = nil;
-                [session setCategory:AVAudioSessionCategoryPlayAndRecord
-                                    mode:AVAudioSessionModeDefault
-                                 options:AVAudioSessionCategoryOptionMixWithOthers|AVAudioSessionCategoryOptionDefaultToSpeaker
-                                   error:&error];
-                [[AVAudioSession sharedInstance] setActive:YES error:nil];
+                [session setCategory: AVAudioSessionCategoryPlayAndRecord
+                         mode: AVAudioSessionModeDefault
+                         options: AVAudioSessionCategoryOptionMixWithOthers|AVAudioSessionCategoryOptionDefaultToSpeaker
+                         error: &error];
+                [session setActive: YES error: &error];
+                [session overrideOutputAudioPort: AVAudioSessionPortOverrideSpeaker error:&error];
                 printf("baikal_flutter_sound_core_player_engine AVAudioSession\n");
                 return [super init];
        }
 
        -(void) startPlayerFromBuffer: (NSData*) dataBuffer
        {
-                printf("baikal_flutter_sound_core_player_engine startPlayerFromBuffer\n");
                 NSError* error = [[NSError alloc] init];
                 [self setAudioPlayer:  [[AVAudioPlayer alloc] initWithData: dataBuffer error: &error]];
                 [self getAudioPlayer].delegate = flautoPlayer;
@@ -77,7 +75,6 @@
        -(void)  startPlayerFromURL: (NSURL*) url codec: (t_CODEC)codec channels: (int)numChannels sampleRate: (long)sampleRate
 
        {
-                printf("baikal_flutter_sound_core_player_engine startPlayerFromURL\n");
                 [self setAudioPlayer: [[AVAudioPlayer alloc] initWithContentsOfURL: url error: nil] ];
                 [self getAudioPlayer].delegate = flautoPlayer;
         }
