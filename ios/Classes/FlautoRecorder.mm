@@ -1,4 +1,3 @@
-baikal_test_FlautoRecorder.mm
 //
 //  AudioRecorder.m
 //  flutter_sound

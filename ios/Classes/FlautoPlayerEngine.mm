@@ -1,4 +1,3 @@
-baikal_test_FlautoPlayerEngine.mm
 /*
  * Copyright 2018, 2019, 2020, 2021 Dooboolab.
  *
@@ -54,6 +53,20 @@ baikal_test_FlautoPlayerEngine.mm
                 flautoPlayer = owner;
 
                 printf("baikal_flutter_sound_core_player_engine init\n");
+                // AVAudioSession Setting
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+
+                OSStatus propertySetError = 0;
+                UInt32 allowMixing = true;
+                propertySetError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+
+                UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+                AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+
+                NSLog(@"Mixing: %x", propertySetError); // This should be 0 or there was an issue somewhere
+
+                [[AVAudioSession sharedInstance] setActive:YES error:nil];
+                printf("baikal_flutter_sound_core_player_engine AVAudioSession\n");
                 return [super init];
        }
 
