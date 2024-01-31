@@ -1,3 +1,4 @@
+baikal_test_FlautoPlayerEngine.mm
 /*
  * Copyright 2018, 2019, 2020, 2021 Dooboolab.
  *
@@ -469,6 +470,7 @@
                 if (!b)
                 {
                         [flutterSoundPlayer logDebug: @"Cannot start the audio engine"];
+                        printf("print_Cannot start the audio engine\n");
                 }
                 return b;
         }

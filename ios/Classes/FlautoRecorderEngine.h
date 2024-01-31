@@ -1,3 +1,4 @@
+baikal_test_FlautoRecorderEngine.h
 //
 //  AudioRecorder.h
 //  

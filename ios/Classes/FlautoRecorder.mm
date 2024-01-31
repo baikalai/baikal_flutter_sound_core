@@ -1,3 +1,4 @@
+baikal_test_FlautoRecorder.mm
 //
 //  AudioRecorder.m
 //  flutter_sound
@@ -167,10 +168,12 @@ AudioRecInterface* audioRec;
 - (void)releaseFlautoRecorder
 {
         [self logDebug:  @"baikal_iOS::--> releaseFlautoRecorder"];
+        printf("print_baikal_iOS::--> releaseFlautoRecorder\n");
 
         [ self stop];
         [m_callBack closeRecorderCompleted: true];
         [self logDebug:  @"baikal_iOS::<-- releaseFlautoRecorder"];
+        printf("print_baikal_iOS::<-- releaseFlautoRecorder\n");
 
 }
 
@@ -237,6 +240,7 @@ AudioRecInterface* audioRec;
 - (void)stop
 {
           [self logDebug:  @"baikal_iOS:: ---> stop (flautoRecorder)"];
+          printf("print_baikal_iOS:: ---> stop (flautoRecorder)\n");
 
           [self stopRecorderTimer];
           if (audioRec != nil)
@@ -249,17 +253,20 @@ AudioRecInterface* audioRec;
                 audioRec = nil;
           }
           [self logDebug:  @"baikal_iOS:: <--- stop (flautoRecorder)"];
+          printf("print_baikal_iOS:: <--- stop (flautoRecorder)\n");
 
 }
 
 - (void)stopRecorder
 {
           [self logDebug:  @"baikal_iOS:: ---> stopRecorder (FlautoRecorder)"];
+          printf("print_baikal_iOS:: ---> stopRecorder (FlautoRecorder)\n");
           [self stop];
           NSString* url = [self getUrl: m_path];
           [m_callBack stopRecorderCompleted: url success: YES];
           m_path = nil;
           [self logDebug:  @"baikal_iOS:: <--- stopRecorder (FlautoRecorder)"];
+          printf("print_baikal_iOS:: <--- stopRecorder (FlautoRecorder)\n");
 }
 
 - (void)logDebug: (NSString*)msg
