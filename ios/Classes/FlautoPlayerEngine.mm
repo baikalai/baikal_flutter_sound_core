@@ -54,7 +54,6 @@
                 // AVAudioSession Setting
                 AVAudioSession *session = [AVAudioSession sharedInstance];
                 NSError *error = nil;
-                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
                 [session setCategory:AVAudioSessionCategoryPlayback error:&error];
                 if (![session setCategory:AVAudioSessionCategoryPlayback error:&error]) {
                     NSLog(@"AVAudioSession error : %@", error);
