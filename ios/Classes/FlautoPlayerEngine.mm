@@ -51,16 +51,15 @@
        {
                 flautoPlayer = owner;
 
-                printf("baikal_flutter_sound_core_player_engine init\n");
                 // AVAudioSession Setting
                 AVAudioSession *session = [AVAudioSession sharedInstance];
                 NSError *error = nil;
-                [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-                if (![session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error]) {
+                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
+                [session setCategory:AVAudioSessionCategoryPlayback error:&error];
+                if (![session setCategory:AVAudioSessionCategoryPlayback error:&error]) {
                     NSLog(@"AVAudioSession error : %@", error);
                 }
                 [session setActive: YES error: &error];
-                printf("baikal_flutter_sound_core_player_engine AVAudioSession\n");
                 return [super init];
        }
 
